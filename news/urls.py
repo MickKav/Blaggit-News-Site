@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
     path('', views.PostList.as_view(), name='home'),
+    path('summernote/', include('django_summernote.urls')),
 ]
