@@ -29,7 +29,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-mickkav-redditstylenews-u4w28ho0gyt.ws-eu105.gitpod.io', 'blaggit-news.herokuapp.com','localhost']
+ALLOWED_HOSTS = [
+    x.strip() for x in os.environ.get("ALLOWED_HOSTS", "").split(",")
+]
 
 
 # Application definition

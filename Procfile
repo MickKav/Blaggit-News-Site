@@ -1,1 +1,1 @@
-web: gunicorn blaggit-news.wsgi
+web: gunicorn blaggit.wsgi
