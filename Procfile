@@ -1,0 +1,1 @@
+web: gunicorn blaggit-news.wsgi
