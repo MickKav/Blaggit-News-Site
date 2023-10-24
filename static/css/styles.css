@@ -85,6 +85,10 @@
   box-sizing: border-box;
 }
 
+.mast-contain {
+  background-image: url('https://fastly.picsum.photos/id/29/4000/2670.jpg?hmac=rCbRAl24FzrSzwlR5tL-Aqzyu5tX_PA95VJtnUXegGU')
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -10683,6 +10687,7 @@ header.masthead {
 header.masthead:before {
   content: "";
   position: absolute;
+  background-image: url('https://fastly.picsum.photos/id/29/4000/2670.jpg?hmac=rCbRAl24FzrSzwlR5tL-Aqzyu5tX_PA95VJtnUXegGU');
   top: 0;
   left: 0;
   right: 0;
@@ -10785,6 +10790,7 @@ header.masthead .post-heading .meta a {
   font-weight: 300;
   margin-bottom: 0.625rem;
 }
+
 .post-preview > .post-meta {
   font-size: 1.125rem;
   font-style: italic;

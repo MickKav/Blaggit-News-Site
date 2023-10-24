@@ -18,8 +18,12 @@ class PostDetail(View):
         post = get_object_or_404(queryset, slug=slug)
         comments = post.comments.filter(approved=True).order_by('created_on')
         liked = False
-        if post.likes.filter(id=self.request.user.id).exists():
+        disliked = False
+        if post.up_vote.filter(id=self.request.user.id).exists():
             liked = True
+        elif post.down_vote.filter(id=self.request.user.id).exists():
+            disliked = True
+        
         
         return render(
             request,

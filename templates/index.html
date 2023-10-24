@@ -18,7 +18,7 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Post Title-->
-                                        <a href="#">
+                                        <a href="{% url 'post_detail' post.slug %}">
                                             <h5 class="fw-bolder">{{ post.title }}</h5>
                                             <!-- Post informaton-->
                                             <p class="card-text">{{ post.excerpt }}</p>
