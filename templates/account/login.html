@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
-            <h3>{% trans "Sign In" %}</h3>
+            <h2 class="text-center">{% trans "Sign In" %}</h2>
 
             <p>{% blocktrans %}Welcome back to the code|star blog. To leave a comment or like a post, please log in. If
                 you
@@ -19,14 +19,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
+        <div class="col-md-8 mt-3 h-60 offset-md-2 border border-left-0">
+            <form class="d-flex flex-column login position-relative" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
+                <p><button class="btn btn-signup end-20 h-20 w-15 mt-3 position-absolute start-0 mb-2 border p-2" type="submit" style="height: 4rem;
+                    width: 8rem;">{% trans "Sign In" %}</button></p>
             </form>
         </div>
     </div>
