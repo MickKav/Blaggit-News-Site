@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django_summernote',
+    'crispy_forms',
     'news',
 ]
 
@@ -58,6 +59,10 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CSRF_TRUSTED_ORIGINS = ['https://8000-mickkav-redditstylenews-u4w28ho0gyt.ws-eu105.gitpod.io']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -85,8 +85,8 @@
   box-sizing: border-box;
 }
 
-.mast-contain {
-  background-image: url('https://fastly.picsum.photos/id/29/4000/2670.jpg?hmac=rCbRAl24FzrSzwlR5tL-Aqzyu5tX_PA95VJtnUXegGU')
+p#author-txt {
+  margin: 15rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
