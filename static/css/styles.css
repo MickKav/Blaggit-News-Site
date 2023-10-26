@@ -85,8 +85,16 @@
   box-sizing: border-box;
 }
 
-p#author-txt {
+#author-txt {
   margin: 15rem;
+}
+
+#comment-head {
+  margin: 2.5rem;
+}
+
+#p-font-weight {
+  font-size: medium;
 }
 
 @media (prefers-reduced-motion: no-preference) {
