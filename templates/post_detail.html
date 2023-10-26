@@ -28,18 +28,48 @@
             <div class="card-body">
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
-                <p class="card-text ">
+                <p class="card-text" id="card-text">
                     {{ post.content | safe }}
                 </p>
                 <div class="row">
 
                     <div class="col-1">
-                        <!-- The number of likes goes before the closing strong tag -->
-                        <strong class="text-secondary"><i class="fa-regular fa-circle-up"></i> {{ post.number_of_up_votes }} </strong>
+                        <strong>
+                            {% if user.is_authenticated %}
+                            <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                {% csrf_token %}
+                                {% if liked %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                    class="fa-solid fa-circle-up" style="color: #1ea427;"></i></button>
+                                {% else %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                    class="fa-regular fa-circle-up"></i></button>
+                                {% endif %}
+                            </form>
+                            {% else%}
+                            <span class="text-scondary"><i class="fa-regular fa-circle-up"></i></span>
+                            {% endif %}
+                            <span class="text-secondary">{{ post.number_of_up_votes}}</span>
+                        </strong>
                     </div>
                     <div class="col-1">
-                        <!-- The number of likes goes before the closing strong tag -->
-                        <strong class="text-secondary"><i class="fa-regular fa-circle-down"></i> {{ post.number_of_down_votes }} </strong>
+                        <strong>
+                            {% if user.is_authenticated %}
+                            <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                {% csrf_token %}
+                                {% if disliked %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                    class="fa-solid fa-circle-down" style="color: #ff0000;"></i></button>
+                                {% else %}
+                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                    class="fa-regular fa-circle-down"></i></button>
+                                {% endif %}
+                            </form>
+                            {% else%}
+                            <span class="text-scondary"><i class="fa-regular fa-circle-down"></i></span>
+                            {% endif %}
+                            <span class="text-secondary">{{ post.number_of_down_votes}}</span>
+                        </strong>
                     </div>
                     <div class="col-1">
                         {% with comments.count as total_comments %}
@@ -66,14 +96,14 @@
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold" id="p-font-weight">
                         <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                        {{ comment.name }}
-                        <span class=" text-muted font-weight-normal">
-                            <!-- The comment's created date goes here -->
-                            {{ comment.created_on }}
-                        </span> wrote:
+                        {{ comment.name }} wrote:
                     </p>
                     <!-- The body of the comment goes before the | -->
                     {{ comment.body | linebreaks }}
+                    <span class="text-muted font-weight-normal" id="comment-time">
+                        <!-- The comment's created date goes here -->
+                        {{ comment.created_on }}
+                    </span>
                 </div>
                 <!-- Our for loop ends here -->
                 {% endfor %}

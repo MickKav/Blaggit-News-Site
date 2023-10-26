@@ -85,8 +85,17 @@
   box-sizing: border-box;
 }
 
+#btn-like {
+  border: none;
+  background-color: white;
+}
+
+img {
+  width: 30rem;
+}
+
 #author-txt {
-  margin: 15rem;
+  margin-top: 15rem;
 }
 
 #comment-head {
@@ -428,6 +437,27 @@ legend {
   font-size: calc(1.275rem + 0.3vw);
   line-height: inherit;
 }
+
+@media (min-width: 1024px) {
+  #author-text {
+    margin-top: 10rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #author-txt {
+    margin-top: 11rem;
+    margin-left: 0.5rem;
+    font-size: x-small;
+  }
+  img {
+    width: 22.5rem;
+  }
+  .post-title {
+    font-size: x-large;
+  }
+}
+
 @media (min-width: 1200px) {
   legend {
     font-size: 1.5rem;

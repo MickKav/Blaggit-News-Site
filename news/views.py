@@ -73,3 +73,21 @@ class PostDetail(View):
                 "comment_form": CommentForm(),
             },
         )
+
+
+class PostVote(View):
+
+    def post(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+
+        if post.up_vote.filter(id=request.user.id).exists():
+            post.up_vote.remove(request.user)
+        else:
+            post.up_vote.add(request.user)
+
+        if post.down_vote.filter(id=request.user.id).exists():
+            post.down_vote.remove(request.user)
+        else:
+            post.down_vote.add(request.user)
+
+        return HttpResponseRedirect(reverse('post-detail', args=[slug]))
