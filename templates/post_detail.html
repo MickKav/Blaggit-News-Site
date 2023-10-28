@@ -44,11 +44,12 @@
                                 <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
                                     class="fa-regular fa-circle-up"></i></button>
                                 {% endif %}
+                                <input class="d-none" type="text" value="up" name="vote">
                             </form>
                             {% else%}
                             <span class="text-scondary"><i class="fa-regular fa-circle-up"></i></span>
                             {% endif %}
-                            <span class="text-secondary">{{ post.number_of_up_votes}}</span>
+                            <span class="text-secondary">{{ post.number_of_up_votes }}</span>
                         </strong>
                     </div>
                     <div class="col-1">
@@ -63,11 +64,12 @@
                                 <button type="submit" name="blogdownpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
                                     class="fa-regular fa-circle-down"></i></button>
                                 {% endif %}
+                                <input class="d-none" type="text" value="down" name="vote">
                             </form>
                             {% else%}
                             <span class="text-scondary"><i class="fa-regular fa-circle-down"></i></span>
                             {% endif %}
-                            <span class="text-secondary">{{ post.number_of_down_votes}}</span>
+                            <span class="text-secondary">{{ post.number_of_down_votes }}</span>
                         </strong>
                     </div>
                     <div class="col-1">
@@ -83,10 +85,15 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action="{% url 'post_delete' post.slug %}" class="d-inline" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-lg border card">Delete</button>
-            </form>
+            {% if request.user.post.author %}
+            <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
+            {% csrf_token %}
+                Edit
+            </a>
+            <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger btn-lg border card">
+                Delete
+            </a>
+            {% endif %}
             <hr>
         </div>
     </div>

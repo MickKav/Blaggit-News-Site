@@ -102,8 +102,85 @@ img {
   margin: 2.5rem;
 }
 
+#acc-signup {
+  border: 1px solid lightgray;
+}
+
+#create-post {
+  margin-bottom: 3rem;
+}
+
+#id_username {
+  margin-left: 3.1rem;
+}
+
+#id_password1 {
+  margin-left: 3.5rem;
+}
+
+li {
+  font-size: small;
+}
+
+@media (min-width: 1440px){
+  label {
+    margin: 1rem;
+  }
+  #signin-box {
+    height: 15.7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #id_login {
+    margin-left: 6rem;
+  }
+  label {
+    margin: 1.3rem;
+  }
+  #signin-box {
+    height: 17.3rem;
+  }
+}
+
+@media (min-width: 768px){
+  label {
+    margin: 1rem;
+  }
+  #id_login {
+    margin-left: 6rem;
+  }
+  #signin-box {
+    height: 15.7rem;
+  }
+  #id_password {
+    margin-left: 6.4rem;
+  }
+}
+
+@media (min-width: 425px){
+  input {
+    font-size: small;
+  }
+  #id_password {
+    margin-left: 0.4rem;
+  }
+  #signin-box {
+    height: 21.7rem;
+  }
+}
+
+#signin-btn {
+
+}
+
+.d-flex.flex-column.login.position-relative {
+  height: 16rem;
+}
+
 #p-font-weight {
   font-size: medium;
+  margin-bottom: 2rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -581,6 +658,16 @@ progress {
   .display-4 {
     font-size: 3.5rem;
   }
+}
+
+.comments {
+  height: 100%;
+}
+
+#comment-time {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 2rem;
 }
 
 .requiredField {

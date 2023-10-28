@@ -3,6 +3,10 @@
 {% block content %}
         <!-- Main Content-->
             <div class="container px-4 px-lg-5 mt-5">
+                {% if user.is_authenticated %}
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" id="create-post" 
+                    href="{% url 'post_add' %}">Create Post</a></div>
+                {% endif %}
                 <div class="row gx-4 gx-lg-8 row-cols-1 row-cols-md-1 row-cols-xl-2 justify-content-center">
                     {% for post in post_list %}
                         <div class="col mb-5">
@@ -29,7 +33,6 @@
                                 </div>
                                 <!-- Post actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Read Post</a></div>
                                     <div class="image-flash">
                                         <p class="author">Author: {{ post.author }}</p>
                                         <p class="card-text text-muted h6">{{ post.created_on }}</p>
