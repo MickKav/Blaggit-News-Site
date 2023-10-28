@@ -90,4 +90,4 @@ class PostVote(View):
         else:
             post.down_vote.add(request.user)
 
-        return HttpResponseRedirect(reverse('post-detail', args=[slug]))
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))

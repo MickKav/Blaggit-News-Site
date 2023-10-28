@@ -175,6 +175,12 @@ h4, .h4 {
   h4, .h4 {
     font-size: 1.5rem;
   }
+  #id_login {
+    margin-left: 6rem;
+  }
+  .comments {
+    margin-left: 1rem;
+  }
 }
 
 h5, .h5 {
@@ -448,9 +454,9 @@ legend {
   #author-txt {
     margin-top: 11rem;
     margin-left: 0.5rem;
-    font-size: x-small;
+    font-size: small;
   }
-  img {
+  #post-img {
     width: 22.5rem;
   }
   .post-title {
@@ -575,6 +581,18 @@ progress {
   .display-4 {
     font-size: 3.5rem;
   }
+}
+
+.requiredField {
+  color: transparent;
+}
+
+#post-author {
+  left: 4rem;
+}
+
+#id_password {
+  margin-left: 6.4rem;
 }
 
 .display-5 {
@@ -10597,9 +10615,6 @@ hr {
   opacity: 1;
 }
 
-p {
-  margin: 2rem 1rem 1rem;
-}
 p a {
   text-decoration: underline;
 }

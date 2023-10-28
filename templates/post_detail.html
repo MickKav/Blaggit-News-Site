@@ -4,16 +4,16 @@
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
-            <div class="col-md-6 masthead-text">
+            <div class="col-md-7 masthead-text">
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ post.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
                 <p class="post-subtitle mt-22" id="author-txt">{{ post.author }} | {{ post.created_on }}</p>
             </div>
-            <div class="d-none d-md-block col-md-6 masthead-image">
+            <div class="d-none d-md-block col-md-5 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in post.featured_image.url %}
-                <img src="https://picsum.photos/id/1084/536/354?grayscale" width="80%">
+                <img id="post-img" src="https://picsum.photos/id/1084/536/354?grayscale" width="80%">
                 {% else %}
                 <img src=" {{ post.featured_image.url }}" width="100%">
                 {% endif %}
@@ -32,7 +32,6 @@
                     {{ post.content | safe }}
                 </p>
                 <div class="row">
-
                     <div class="col-1">
                         <strong>
                             {% if user.is_authenticated %}
@@ -58,10 +57,10 @@
                             <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
                                 {% csrf_token %}
                                 {% if disliked %}
-                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                <button type="submit" name="blogdownpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
                                     class="fa-solid fa-circle-down" style="color: #ff0000;"></i></button>
                                 {% else %}
-                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
+                                <button type="submit" name="blogdownpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
                                     class="fa-regular fa-circle-down"></i></button>
                                 {% endif %}
                             </form>
@@ -120,7 +119,7 @@
                 {% if user.is_authenticated %}
 
                 <h3>Leave a comment:</h3>
-                <p>Posting as: {{ user.username }}</p>
+                <p id="post-author">Posting as: {{ user.username }}</p>
                 <form method="post" style="margin-top:1.3rem;">
                     {{ comment_form | crispy }}
                     {% csrf_token %}
