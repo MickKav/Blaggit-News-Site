@@ -91,3 +91,9 @@ class PostVote(View):
             post.down_vote.add(request.user)
 
         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+class PostDelete(View):
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        post.delete()
+        return HttpResponseRedirect(reverse('home'))

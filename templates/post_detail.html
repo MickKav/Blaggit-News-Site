@@ -83,6 +83,10 @@
     </div>
     <div class="row">
         <div class="col">
+            <form action="{% url 'post_delete' post.slug %}" class="d-inline" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-lg border card">Delete</button>
+            </form>
             <hr>
         </div>
     </div>
@@ -111,7 +115,7 @@
         <div class="col-md-4 card mb-4  mt-3 ">
             <div class="card-body">
                 {% if commented %}
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success" role="alert" id="msg">
                     Your comment is awaiting approval
                 </div>
                 {% else %}
