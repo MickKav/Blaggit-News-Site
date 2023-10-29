@@ -1,6 +1,11 @@
 from .models import Comment, Post
 from django import forms
 
+class PostEditForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'featured_image', 'status']
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

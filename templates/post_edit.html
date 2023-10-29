@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <!-- Main Content-->
-        <div class="col-md-8 mt-3 offset-md-2 text-center">
-            
-            <input type="text" name="{{ post.title }}" value="{{ post.title }}" />
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center">Edit Post</h2>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
         </div>
-{%endblock%}
+    </div>
+{% endblock %}

@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .models import Post
-from .forms import CommentForm, PostForm
+from .forms import CommentForm, PostForm, PostEditForm
 
 
 class PostList(generic.ListView):
@@ -118,26 +118,30 @@ class PostDelete(DeleteView):
 class AddPost(CreateView):
     model = Post
     template_name = 'post_add.html'
-    form_class = PostForm  # specify the form class
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.slug = unique_slugify(form.instance.title, Post)
         return super().form_valid(form)
 
     def get_success_url(self):
-        # You can customize the redirect URL after a successful form submission
         return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
 
 
 
 class PostEdit(View):
+    template_name = 'post_edit.html'
 
     def get(self, request, slug):
-        return render(request, 'post_edit.html')
-
-    def post(self, request, slug, *args, **kwargs):
         post = get_object_or_404(Post, slug=slug)
-        post.title = request.POST.get('title')
-        post.content = request.POST.get('content')
-        post.save()
-        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+        form = PostEditForm(instance=post)
+        return render(request, self.template_name, {'form': form, 'post': post})
+
+    def post(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        form = PostEditForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+        return render(request, self.template_name, {'form': form, 'post': post})
