@@ -13,7 +13,7 @@ class Post(models.Model):
     featured_image = CloudinaryField('image', default='placeholder')
     excerpt = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
+    status = models.IntegerField(choices=STATUS, default=1)
     up_vote = models.ManyToManyField(User, related_name='news_up_vote', blank=True)
     down_vote = models.ManyToManyField(User, related_name='news_down_vote', blank=True)
 

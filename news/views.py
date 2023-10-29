@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.views.generic.edit import CreateView, DeleteView
+from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .models import Post
@@ -122,7 +123,12 @@ class AddPost(CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.slug = unique_slugify(form.instance.title, Post)
+        base_slug = slugify(form.instance.title)
+        form.instance.slug = base_slug
+        i = 1
+        while Post.objects.filter(slug=form.instance.slug).exists():
+            form.instance.slug = f"{base_slug}-{i}"
+            i += 1
         return super().form_valid(form)
 
     def get_success_url(self):

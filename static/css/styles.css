@@ -106,6 +106,26 @@ img {
   border: 1px solid lightgray;
 }
 
+@media (min-width: 768px) {
+  .post-title {
+      font-size: xxx-large;
+  }
+  #author-txt {
+    margin-top: 3rem;
+    margin-left: 0.5rem;
+    font-size: smaller;
+  }
+}
+
+.masthead-text {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-top: 10rem;
+  height: 12rem;
+}
+
 #create-post {
   margin-bottom: 3rem;
 }
