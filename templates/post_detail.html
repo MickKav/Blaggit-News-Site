@@ -9,6 +9,12 @@
                 <h1 class="post-title">{{ post.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
                 <p class="post-subtitle mt-22" id="author-txt">{{ post.author }} | {{ post.created_on }}</p>
+                <h3>Categories:</h3>
+                <ul>
+                    {% for category in categories %}
+                        <li>{{ category.name }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="d-none d-md-block col-md-5 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
