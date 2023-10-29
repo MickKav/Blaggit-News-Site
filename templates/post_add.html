@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Add a new post{% endblock title %}
 {% block content %}
-<div class="row">
-  <div id="signup-div" class="col-md-8 mt-3 offset-md-2">
-    <h3 class="text-center">Add a new post</h3>
-    <br>
-    <form id="post-form" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-outline-dark right">Post</button>
-    </form>
+  <div class="row">
+    <div id="signup-div" class="col-md-8 mt-3 offset-md-2">
+      <h3 class="text-center">Add a new post</h3>
+      <br>
+      <form id="post-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-dark right">Post</button>
+      </form>
+    </div>
   </div>
-</div>
 {% endblock %}

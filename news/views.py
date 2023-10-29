@@ -4,8 +4,25 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post
-from .forms import CommentForm, PostForm, PostEditForm
+from .models import Post, AuthorProfile
+from .forms import CommentForm, PostForm, PostEditForm, AuthorProfileForm
+
+
+class AuthorProfileView(View):
+    template_name = 'author_profile.html'
+
+    def get(self, request):
+        profile, created = AuthorProfile.objects.get_or_create(user=request.user)
+        form = AuthorProfileForm(instance=profile)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        profile, created = AuthorProfile.objects.get_or_create(user=request.user)
+        form = AuthorProfileForm(request.POST, request.Files, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('author_profile')
+        return render(request, self.template_name, {'form': form})
 
 
 class PostList(generic.ListView):
@@ -27,6 +44,8 @@ class PostDetail(View):
             liked = True
         elif post.down_vote.filter(id=self.request.user.id).exists():
             disliked = True
+
+            
 
         return render(
             request,

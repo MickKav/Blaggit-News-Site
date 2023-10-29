@@ -1,4 +1,4 @@
-from .models import Comment, Post
+from .models import Comment, Post, AuthorProfile
 from django import forms
 
 class PostEditForm(forms.ModelForm):
@@ -17,3 +17,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'featured_image', 'status']
+
+
+class AuthorProfileForm(forms.ModelForm):
+    class Meta:
+        model = AuthorProfile
+        fields = ['bio', 'avatar', 'website']

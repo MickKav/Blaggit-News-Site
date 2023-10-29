@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from .views import AuthorProfileView
 
 urlpatterns = [
     path('', views.PostList.as_view(), name='home'),
@@ -8,4 +9,5 @@ urlpatterns = [
     path('delete/<slug:slug>', views.PostDelete.as_view(), name='post_delete'),
     path('post_add/', views.AddPost.as_view(), name='post_add'),
     path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('author/profile/', AuthorProfileView.as_view(), name='author_profile'),
 ]
