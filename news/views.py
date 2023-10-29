@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
+from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 
 
 class PostList(generic.ListView):
@@ -103,17 +104,30 @@ class PostVote(View):
         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
-class PostDelete(View):
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('home')
 
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
         return render(request, 'post_delete.html', {'post': post})
 
 
+
 class AddPost(CreateView):
     model = Post
     template_name = 'post_add.html'
-    fields = '__all__'
+    form_class = PostForm  # specify the form class
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # You can customize the redirect URL after a successful form submission
+        return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+
 
 
 class PostEdit(View):

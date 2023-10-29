@@ -110,6 +110,14 @@ img {
   margin-bottom: 3rem;
 }
 
+#id_title {
+  margin-left: 2rem;
+}
+
+#post-form {
+  border: 1px solid lightgray;
+}
+
 #id_username {
   margin-left: 3.1rem;
 }

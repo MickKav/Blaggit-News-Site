@@ -85,7 +85,7 @@
     </div>
     <div class="row">
         <div class="col">
-            {% if request.user.post.author %}
+            {% if request.user == post.author %}
             <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
             {% csrf_token %}
                 Edit
