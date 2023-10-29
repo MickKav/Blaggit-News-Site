@@ -102,21 +102,21 @@
             <h3 class="ml-5 mt-4" id="comment-head">Comments:</h3>
             <div class="card-body">
                 <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
-                {% for comment in comments %}
                 <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold" id="p-font-weight">
-                        <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                        {{ comment.name }} wrote:
-                    </p>
-                    <!-- The body of the comment goes before the | -->
-                    {{ comment.body | linebreaks }}
-                    <span class="text-muted font-weight-normal" id="comment-time">
-                        <!-- The comment's created date goes here -->
-                        {{ comment.created_on }}
-                    </span>
+                    {% for comment in comments %}
+                    <div class="comment-container">
+                        <p class="font-weight-bold" id="p-font-weight">
+                            <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
+                            {{ comment.name }} wrote:
+                        </p>
+                        <!-- The body of the comment goes before the | -->
+                        {{ comment.body | linebreaks }}
+                            {{ comment.created_on }}
+                        <hr>
+                    </div>
+                    {% endfor %}
                 </div>
                 <!-- Our for loop ends here -->
-                {% endfor %}
             </div>
         </div>
         <div class="col-md-4 card mb-4  mt-3 ">
