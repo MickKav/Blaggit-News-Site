@@ -26,7 +26,8 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'featured_image', 'content', 'category', 'status']
 
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
-            'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'})
+            'title': forms.TextInput(attrs = {'class': 'form-control'}),
+            'content': forms.Textarea(attrs = {'class': 'form-control'}),
+            'category': forms.Select(choices = choice_list, 
+                attrs = {'class': 'form-control'})
         }
