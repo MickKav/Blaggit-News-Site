@@ -104,7 +104,7 @@ class PostVote(View):
 
                 post.down_vote.add(request.user)
 
-        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+        return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
 
 
 class PostDelete(DeleteView):
