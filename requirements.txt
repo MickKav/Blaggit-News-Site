@@ -4,10 +4,12 @@ dj-database-url==2.1.0
 dj3-cloudinary-storage==0.0.6
 Django==4.2.6
 django-allauth==0.57.0
-django-crispy-forms==2.1
+django-bootstrap4==23.2
+django-crispy-forms==1.14.0
 django-summernote==0.8.20.0
 gunicorn==21.2.0
 oauthlib==3.2.2
+Pillow==10.1.0
 psycopg2==2.9.9
 PyJWT==2.8.0
 python3-openid==3.2.0
