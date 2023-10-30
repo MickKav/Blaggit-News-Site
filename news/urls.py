@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import AuthorProfileView, AddCategory, CategoryView
+from .views import AddCategory, CategoryView
 
 urlpatterns = [
     path('', views.PostList.as_view(), name='home'),
@@ -10,6 +10,5 @@ urlpatterns = [
     path('post_add/', views.AddPost.as_view(), name='post_add'),
     path('post_category/', views.AddCategory.as_view(), name='post_category'),
     path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
-    path('author/profile/', AuthorProfileView.as_view(), name='author_profile'),
     path('category/<str:cats>/', CategoryView, name='category'),
 ]

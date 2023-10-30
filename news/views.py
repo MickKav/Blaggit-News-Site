@@ -6,27 +6,8 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post, AuthorProfile, Category
-from .forms import CommentForm, PostForm, PostEditForm, AuthorProfileForm
-
-
-class AuthorProfileView(View):
-    template_name = 'author_profile.html'
-
-    @method_decorator(login_required)
-    def get(self, request):
-        profile, created = AuthorProfile.objects.get_or_create(user=request.user)
-        form = AuthorProfileForm(instance=profile)
-        return render(request, self.template_name, {'form': form})
-
-    @method_decorator(login_required)
-    def post(self, request):
-        profile, created = AuthorProfile.objects.get_or_create(user=request.user)
-        form = AuthorProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('author_profile')
-        return render(request, self.template_name, {'form': form})
+from .models import Post, Category
+from .forms import CommentForm, PostForm, PostEditForm
 
 
 class PostList(generic.ListView):
@@ -49,8 +30,6 @@ class PostDetail(View):
         elif post.down_vote.filter(id=self.request.user.id).exists():
             disliked = True
 
-        author_profile, _ = AuthorProfile.objects.get_or_create(user=post.author)
-
         return render(
             request,
             "post_detail.html",
@@ -61,7 +40,6 @@ class PostDetail(View):
                 "liked": liked,
                 "disliked": disliked,
                 "comment_form": CommentForm(),
-                "author_profile": author_profile,
             },
         )
         

@@ -56,13 +56,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment {self.body} by {self.name}"
-
-
-class AuthorProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True)
-    website = models.URLField(max_length=200, blank=True)
-    avatar = CloudinaryField('image', null=True, blank=True, default='default_avatar.jpg')
-
-    def __str__(self):
-        return self.user.username

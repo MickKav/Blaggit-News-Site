@@ -1,4 +1,4 @@
-from .models import Comment, Post, AuthorProfile, Category
+from .models import Comment, Post, Category
 from django import forms
 
 choices = Category.objects.all().values_list('name', 'name')
@@ -30,9 +30,3 @@ class PostForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'})
         }
-
-
-class AuthorProfileForm(forms.ModelForm):
-    class Meta:
-        model = AuthorProfile
-        fields = ['website', 'avatar', 'bio']
