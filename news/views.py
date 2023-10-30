@@ -117,34 +117,18 @@ class PostDelete(DeleteView):
         return render(request, 'post_delete.html', {'post': post})
 
 
-
+@method_decorator(login_required, name = 'dispatch')
 class AddPost(CreateView):
     model = Post
     template_name = 'post_add.html'
     form_class = PostForm
 
-    def get(self, request, *args, **kwargs):
-        form = PostForm()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = PostForm(request.POST)
-
-        if form.is_valid():
-            post_instance = form.save()
-
-        return render(request, self.template_name, {'form': form})
-
-
     def form_valid(self, form):
         form.instance.author = self.request.user
-        base_slug = slugify(form.instance.title)
-        form.instance.slug = base_slug
-        i = 1
-        while Post.objects.filter(slug=form.instance.slug).exists():
-            form.instance.slug = f"{base_slug}-{i}"
-            i += 1
-        return super().form_valid(form)
+
+        response = super().form_valid(form)
+
+        return response
 
     def get_success_url(self):
         return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
