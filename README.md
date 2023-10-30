@@ -1,39 +1,65 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Blaggit-news (Portfolio 4)
 
-Welcome,
+A blog site where people can post or 'blag' about anything they want and categorise it by theme.
+Visit [live website here]("[# Blaggit-news (Portfolio 4)](https://mickkav.github.io/Reddit-Style-News-Site/")
 
-This is the Code Institute student template for Codeanywhere. If you are using Gitpod then you need [this template](https://github.com/Code-Institute-Org/gitpod-full-template) instead.  We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+[image here]
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **August 30th, 2023**
+## About This Project
+Blaggit News is a web application designed for publishing and sharing blog posts. It provides features such as user authentication, post creation, editing, and deletion, as well as category management. 
 
-## Codeanywhere Reminders
+### Built with
+The project is built using Django, a high-level Python web framework, and incorporates HTML5, CSS3, JavaScript, and Bootstrap for styling and interactivity.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+### Bugs
+- There were a few bugs and errors along the way but have since been alleviated. There a few features that I would like to add in the future such as user profiles and comment replies.
 
-`python3 -m http.server`
+#### Bugs remaining
+- No bugs are in the project currently.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
+## Features
 
-`http_server`
+[image here]
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+- User Authentication:
+    - Allows users to register, log in, and log out.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+- Create, Edit, and Delete Posts:
+    - Registered users can create new posts, edit existing ones, and delete posts they've authored.
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+- Comment System:
+    - Users can comment on blog posts, and authors can approve or delete comments.
 
-To log into the Heroku toolbelt CLI:
+- Category Management:
+    - Admins can approve and delete categories for organizing posts.
+ 
+## Testing
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+The application has been tested extensively to ensure functionality and responsiveness:
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+- HTML & CSS: Validated with W3C and Jigsaw validators.
+- JavaScript: Checked for errors and compatibility.
+- Accessibility: Ensured colors and fonts meet accessibility standards using Lighthouse in Chrome DevTools.
+- Cross-browser Compatibility: Tested on Chrome, Firefox, and Internet Explorer.
+- Responsiveness: Tested on various devices and screen sizes.
 
----
+## Acknowledgements
 
-Happy coding!
+This development journey was guided by various resources and communities:
+
+- Stack Overflow: A valuable resource for troubleshooting and problem-solving.
+- W3C: Ensured adherence to web standards.
+- CSS Tricks & freecodecamp: Provided insights into styling, loops, and layouts.
+- Open Source Images: Sourced from platforms like Pexels.
+
+## Deployment
+
+The site was deployed using Code Institutes mock terminal in Heroku.
+
+- Steps for deployment:
+    - Fork or clone this repository
+    - Create a new Heroku app
+    - Set the buildbacks to "Python" and "NodeJS" in that order
+    - Link the Heroku app to the repository
+    - Click on **Deploy**
