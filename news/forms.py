@@ -29,5 +29,6 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs = {'class': 'form-control'}),
             'content': forms.Textarea(attrs = {'class': 'form-control'}),
             'category': forms.Select(choices = choice_list, 
-                attrs = {'class': 'form-control'})
+                attrs = {'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'readonly': True}),
         }
