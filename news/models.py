@@ -1,6 +1,7 @@
 from django.db import models
-from django.urls import reverse
+from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.urls import reverse
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
@@ -34,6 +35,15 @@ class Post(models.Model):
     down_vote = models.ManyToManyField(User, 
         related_name = 'news_down_vote', blank = True)
     category = models.CharField(max_length = 200, default = 'news')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['-created_on']

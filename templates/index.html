@@ -5,7 +5,7 @@
             <div class="container px-4 px-lg-5 mt-5">
                 {% if user.is_authenticated %}
                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" id="create-post" 
-                    href="{% url 'post_add' %}">Create Post</a></div>
+                    href="{% url 'news:post_add' %}">Create Post</a></div>
                 {% endif %}
                 <div class="row gx-4 gx-lg-8 row-cols-1 row-cols-md-1 row-cols-xl-2 justify-content-center">
                     {% for post in post_list %}
@@ -22,13 +22,13 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Post Title-->
-                                        <a href="{% url 'post_detail' post.slug %}">
+                                        <a href="{% url 'news:post_detail' post.slug %}">
                                             <h5 class="fw-bolder">{{ post.title }}</h5>
                                             <!-- Post informaton-->
                                             <p class="card-text">{{ post.excerpt }}</p>
                                         </a>
                                         <hr />
-                                        <a href="{% url 'category' cats=post.category %}">{{ post.category }}</a>
+                                        <a href="{% url 'news:category' cats=post.category %}">{{ post.category }}</a>
                                     </div>
                                 </div>
                                 <!-- Post actions-->

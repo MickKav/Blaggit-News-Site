@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-8 mt-3 offset-md-2">
 
-            <form method="post" action="{% url 'post_delete' post.slug %}">
+            <form method="post" action="{% url 'news:post_delete' post.slug %}">
                 {% csrf_token %}
                 <button class="btn btn-danger btn-lg border right" type="submit">{% trans 'Delete Post' %}</button>
             </form>

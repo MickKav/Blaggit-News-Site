@@ -32,7 +32,7 @@
                     <div class="col-4 col-md-1">
                         <strong>
                             {% if user.is_authenticated %}
-                                <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                <form action="{% url 'news:post_vote' post.slug %}" class="d-inline" method="POST">
                                     {% csrf_token %}
                                     <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-like">
                                         {% if liked %}
@@ -52,7 +52,7 @@
                     <div class="col-4 col-md-1">
                         <strong>
                             {% if user.is_authenticated %}
-                                <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                <form action="{% url 'news:post_vote' post.slug %}" class="d-inline" method="POST">
                                     {% csrf_token %}
                                     <button type="submit" name="blogdownpost_id" value="{{post.slug}}" class="btn-like">
                                         {% if disliked %}
@@ -82,11 +82,11 @@
     <div class="row">
         <div class="col">
             {% if request.user == post.author %}
-                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
+                <a href="{% url 'news:post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
                     {% csrf_token %}
                     Edit
                 </a>
-                <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger btn-lg border card">
+                <a href="{% url 'news:post_delete' post.slug %}" class="btn btn-danger btn-lg border card">
                     Delete
                 </a>
             {% endif %}

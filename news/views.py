@@ -110,7 +110,7 @@ class PostVote(View):
 class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('news:home')
 
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
@@ -131,7 +131,7 @@ class AddPost(CreateView):
         return response
 
     def get_success_url(self):
-        return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+        return reverse_lazy('news:post_detail', kwargs={'slug': self.object.slug})
 
 
 class PostEdit(View):
@@ -147,13 +147,14 @@ class PostEdit(View):
         form = PostEditForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+            return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
         return render(request, self.template_name, {'form': form, 'post': post})
 
 class AddCategory(CreateView):
     model = Category
     template_name = 'post_category.html'
     fields = '__all__'
+    success_url = reverse_lazy('news:home')
 
 
 def CategoryView(request, cats):
