@@ -1,12 +1,8 @@
 # Blaggit-news (Portfolio 4)
 
-A blog site where people can post or 'blag' about anything they want and categorise it by theme.
-<<<<<<< HEAD
-Visit [live website here]("https://mickkav.github.io/RockPaperScissorsLizardSpock/")
-=======
-Visit [live website here]("[# Blaggit-news (Portfolio 4)](https://mickkav.github.io/Reddit-Style-News-Site/")
+Visit [live website here]("[https://mickkav.github.io/RockPaperScissorsLizardSpock/](https://mickkav.github.io/Blaggit-News-Site/)")
 
-[image here]
+<img src="media/img/amiresponsiveblag.png" alt="image of app page on multiple devices" width="500">
 
 ## About This Project
 Blaggit News is a web application designed for publishing and sharing blog posts. It provides features such as user authentication, post creation, editing, and deletion, as well as category management. 
@@ -23,7 +19,7 @@ The project is built using Django, a high-level Python web framework, and incorp
 
 ## Features
 
-[image here]
+<img src="media/img/blaggit1.png" alt="screenshot of the site home page" width = "500">
 
 - User Authentication:
     - Allows users to register, log in, and log out.
@@ -47,6 +43,8 @@ The application has been tested extensively to ensure functionality and responsi
 - Cross-browser Compatibility: Tested on Chrome, Firefox, and Internet Explorer.
 - Responsiveness: Tested on various devices and screen sizes.
 
+<img src="media/img/blaggcessibility.png" alt="screenshot of accessibility score" width = "500">
+
 ## Acknowledgements
 
 This development journey was guided by various resources and communities:
@@ -58,9 +56,10 @@ This development journey was guided by various resources and communities:
 
 ## Wireframing
 
-[images here]
+<img src="media/img/figmatic.png" alt="screenshots of wireframe" width = "500">
+<img src="media/img/figmatic1.png" alt="screenshots of wireframe" width = "500">
 
-- Figma was used to get a quick vidual Idea to go off of before starting the project.
+- Figma was used to get a quick visual Idea to go off of before starting the project.
 
 ## Deployment
 
@@ -72,4 +71,3 @@ The site was deployed using Code Institutes mock terminal in Heroku.
     - Set the buildbacks to "Python" and "NodeJS" in that order
     - Link the Heroku app to the repository
     - Click on **Deploy**
->>>>>>> e018ea336169258676c2e800cf548019f71e03de
