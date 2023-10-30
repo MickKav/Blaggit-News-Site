@@ -2,6 +2,19 @@ from django.contrib import admin
 from .models import Post, Comment, Category
 from django_summernote.admin import SummernoteModelAdmin
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'approved')
+    list_filter = ('approved',)
+    search_fields = ('name',)
+    actions = ['approve_categories', 'delete_categories']
+
+    def approve_categories(self, request, queryset):
+        queryset.update(approved=True)
+    
+    def delete_categories(self, request, queryset):
+        queryset.delete()
+
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):

@@ -196,4 +196,5 @@ class AddCategory(CreateView):
 
 def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
-    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
+    categories = Category.objects.all()
+    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts, 'categories': categories})

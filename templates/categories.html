@@ -1,30 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Categories{% endblock title %}
 {% block content %}
-    <h1>{{ cats }} Category</h1>
-    <ul>
-    {% for post in category_posts %}
-    <li>
-        <a href="{% url 'post_detail' slug=post.slug %}">
-            {{ post.title }}
-        </a>
-        - {{ post.category }}
-        - {{ post.author }}
-        - {{ post.created_on}}<small>
-        {% if user.is_authenticated %}
-        <a href="{% url 'post_edit' post.slug %}" 
-            class="btn btn-primary btn-lg border card">
-            Edit
-        </a>
-        <a href="{% url 'post_delete' post.slug %}" 
-            class="btn btn-danger btn-lg border card">
-            Delete
-        </a>
-        {% endif %}
-        </small>
-        <br>
-        {{ post.body|slice:"200"|safe }}
-    </li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-5">
+        <h1 id="category-head" class="mb-4">{{ cats }} Category</h1>
+        <ul class="list-group">
+            {% for post in category_posts %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a>
+                            - {{ post.author }}
+                            - {{ post.created_on }}
+                        </div>
+                        <small>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger btn-sm">Delete</a>
+                            {% endif %}
+                        </small>
+                    </div>
+                    <p>{{ post.body|slice:"200"|safe }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Display a list of categories with links to filter posts -->
+        <div class="mt-4">
+            <h2 id="category-list">Filter by Category:</h2>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item"><a href="{% url 'category' cats=category.name %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
