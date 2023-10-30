@@ -28,7 +28,7 @@
                                             <p class="card-text">{{ post.excerpt }}</p>
                                         </a>
                                         <hr />
-                                        
+                                        <a href="{% url 'category' cats=post.category %}">{{ post.category }}</a>
                                     </div>
                                 </div>
                                 <!-- Post actions-->

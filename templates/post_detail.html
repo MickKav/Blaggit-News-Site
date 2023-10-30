@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 <div class="masthead">
     <div class="container">
@@ -11,11 +12,10 @@
                 <p class="post-subtitle mt-22" id="author-txt">{{ post.author }} | {{ post.created_on }}</p>
             </div>
             <div class="d-none d-md-block col-md-5 masthead-image">
-                <!-- The featured image URL goes in the src attribute -->
-                {% if "placeholder" in post.featured_image.url %}
-                <img id="post-img" src="https://picsum.photos/id/1084/536/354?grayscale" width="80%">
+                {% if not post.featured_image %}
+                    <img id="post-img" src="https://picsum.photos/id/1084/536/354?grayscale" width="80%">
                 {% else %}
-                <img src=" {{ post.featured_image.url }}" width="100%">
+                    <img src="{{ post.featured_image.url }}" width="100%">
                 {% endif %}
             </div>
         </div>
@@ -24,7 +24,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-7 card mb-4  mt-3 left  top">
+        <div id="content-box" class="col-md-7 card mb-4  mt-3 left  top">
             <div class="card-body">
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
@@ -97,47 +97,47 @@
             <hr>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-8 card mb-4  mt-3 ">
-            <h3 class="ml-5 mt-4" id="comment-head">Comments:</h3>
-            <div class="card-body">
-                <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
-                <div class="comments" style="padding: 10px;">
-                    {% for comment in comments %}
-                    <div class="comment-container">
-                        <p class="font-weight-bold" id="p-font-weight">
-                            <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                            {{ comment.name }} wrote:
-                        </p>
-                        <!-- The body of the comment goes before the | -->
-                        {{ comment.body | linebreaks }}
-                        {{ comment.created_on }}
-                        <hr>
+    <div id="comment-container" class="container clearfix">
+        <div class="row">
+            <div id="comments-box" class="col-md-8 card mb-4  mt-3 ">
+                <h3 class="ml-5 mt-4" id="comment-head">Comments:</h3>
+                <div class="card-body">
+                    <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
+                    <div class="comments" style="padding: 10px;">
+                        {% for comment in comments %}
+                            <p class="font-weight-bold" id="p-font-weight">
+                                <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
+                                {{ comment.name }} wrote:
+                            </p>
+                            <!-- The body of the comment goes before the | -->
+                            {{ comment.body | linebreaks }}
+                            {{ comment.created_on }}
+                            <hr>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    <!-- Our for loop ends here -->
                 </div>
-                <!-- Our for loop ends here -->
             </div>
-        </div>
-        <div class="col-md-4 card mb-4  mt-3 ">
-            <div class="card-body">
-                {% if commented %}
-                <div class="alert alert-success" role="alert" id="msg">
-                    Your comment is awaiting approval
+            <div id="create-comment-box" class="col-md-4 card mb-4  mt-3 ">
+                <div class="card-body">
+                    {% if commented %}
+                    <div class="alert alert-success" role="alert" id="msg">
+                        Your comment is awaiting approval
+                    </div>
+                    {% else %}
+
+                    {% if user.is_authenticated %}
+
+                    <h3>Leave a comment:</h3>
+                    <p id="post-author">Posting as: {{ user.username }}</p>
+                    <form method="post" style="margin-top:1.3rem;">
+                        {{ comment_form | crispy }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-signup btn-lg border card">Submit</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
                 </div>
-                {% else %}
-
-                {% if user.is_authenticated %}
-
-                <h3>Leave a comment:</h3>
-                <p id="post-author">Posting as: {{ user.username }}</p>
-                <form method="post" style="margin-top:1.3rem;">
-                    {{ comment_form | crispy }}
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-signup btn-lg border card">Submit</button>
-                </form>
-                {% endif %}
-                {% endif %}
             </div>
         </div>
     </div>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Categories{% endblock title %}
+{% block content %}
+    <h1>{{ cats }} Category</h1>
+    <ul>
+    {% for post in category_posts %}
+    <li>
+        <a href="{% url 'post_detail' slug=post.slug %}">
+            {{ post.title }}
+        </a>
+        - {{ post.category }}
+        - {{ post.author }}
+        - {{ post.created_on}}<small>
+        {% if user.is_authenticated %}
+        <a href="{% url 'post_edit' post.slug %}" 
+            class="btn btn-primary btn-lg border card">
+            Edit
+        </a>
+        <a href="{% url 'post_delete' post.slug %}" 
+            class="btn btn-danger btn-lg border card">
+            Delete
+        </a>
+        {% endif %}
+        </small>
+        <br>
+        {{ post.body|slice:"200"|safe }}
+    </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

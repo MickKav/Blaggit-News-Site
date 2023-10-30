@@ -130,8 +130,76 @@ img {
   margin-bottom: 3rem;
 }
 
+#content-box {
+  width: 100%;
+}
+
+@media (min-width: 1440px) {
+  #signin-box {
+    height: 16.7rem;
+    width: 50%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 425px) {
+  #id_login {
+    margin-left: 1rem;
+  }
+  #signin-box {
+    height: 16.7rem;
+  }
+  #signin-div {
+    text-align: center;
+  }
+}
+
+@media (min-width: 320px) {
+  #id_login {
+    margin-left: 1.3rem;
+  }
+  #id_password {
+    margin-left: 1.4rem;
+  }
+  label {
+    margin: 0.5rem;
+  }
+  #signin-box {
+    height: 21rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #blag {
+    display: none;
+  }
+}
+
+#blag {
+  text-align: center;
+}
+
+#signin-div {
+  text-align: center;
+}
+
+#signout-div {
+  text-align: center;
+}
+
+#id_category {
+  margin-left: 2rem;
+  width: 92%;
+}
+
+#id_content {
+  margin-left: 2rem;
+  width: 92%;
+}
+
 #id_title {
   margin-left: 2rem;
+  width: 92%;
 }
 
 #post-form {
@@ -251,7 +319,7 @@ h1, .h1 {
 }
 @media (min-width: 1200px) {
   h1, .h1 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 }
 
@@ -549,17 +617,33 @@ legend {
   line-height: inherit;
 }
 
+@media (min-width: 1440px) {
+  .post-title {
+    font-size: xx-large;
+    margin-top: 8rem;
+  }
+  #author-text {
+    margin-top: 3rem;
+  }
+  .masthead-image {
+    width: 34.5rem;
+  }
+}
+
 @media (min-width: 1024px) {
   #author-text {
     margin-top: 10rem;
+  }
+  .post-title {
+    font-size: xx-large;
   }
 }
 
 @media (min-width: 768px) {
   #author-txt {
-    margin-top: 11rem;
+    margin-top: 14rem;
     margin-left: 0.5rem;
-    font-size: small;
+    font-size: smaller;
   }
   #post-img {
     width: 22.5rem;

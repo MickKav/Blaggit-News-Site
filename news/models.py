@@ -1,8 +1,18 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 
 class Post(models.Model):
@@ -17,6 +27,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=1)
     up_vote = models.ManyToManyField(User, related_name='news_up_vote', blank=True)
     down_vote = models.ManyToManyField(User, related_name='news_down_vote', blank=True)
+    category = models.CharField(max_length=200, default='news')
 
     class Meta:
         ordering = ['-created_on']
@@ -49,8 +60,8 @@ class Comment(models.Model):
 class AuthorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     website = models.URLField(max_length=200, blank=True)
+    avatar = CloudinaryField('image', null=True, blank=True, default='default_avatar.jpg')
 
     def __str__(self):
         return self.user.username

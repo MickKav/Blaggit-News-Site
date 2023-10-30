@@ -1,24 +1,28 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post, AuthorProfile
+from .models import Post, AuthorProfile, Category
 from .forms import CommentForm, PostForm, PostEditForm, AuthorProfileForm
 
 
 class AuthorProfileView(View):
     template_name = 'author_profile.html'
 
+    @method_decorator(login_required)
     def get(self, request):
         profile, created = AuthorProfile.objects.get_or_create(user=request.user)
         form = AuthorProfileForm(instance=profile)
         return render(request, self.template_name, {'form': form})
 
+    @method_decorator(login_required)
     def post(self, request):
         profile, created = AuthorProfile.objects.get_or_create(user=request.user)
-        form = AuthorProfileForm(request.POST, request.Files, instance=profile)
+        form = AuthorProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('author_profile')
@@ -45,7 +49,7 @@ class PostDetail(View):
         elif post.down_vote.filter(id=self.request.user.id).exists():
             disliked = True
 
-            
+        author_profile, _ = AuthorProfile.objects.get_or_create(user=post.author)
 
         return render(
             request,
@@ -57,6 +61,7 @@ class PostDetail(View):
                 "liked": liked,
                 "disliked": disliked,
                 "comment_form": CommentForm(),
+                "author_profile": author_profile,
             },
         )
         
@@ -182,3 +187,13 @@ class PostEdit(View):
             form.save()
             return HttpResponseRedirect(reverse('post_detail', args=[slug]))
         return render(request, self.template_name, {'form': form, 'post': post})
+
+class AddCategory(CreateView):
+    model = Category
+    template_name = 'post_category.html'
+    fields = '__all__'
+
+
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats)
+    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
