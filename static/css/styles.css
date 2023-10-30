@@ -632,10 +632,31 @@ legend {
 
 @media (min-width: 1024px) {
   #author-text {
-    margin-top: 10rem;
+    margin-top: 3rem;
   }
   .post-title {
     font-size: xx-large;
+    margin-top: 9rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #author-text {
+    margin-top: 3rem;
+  }
+  .post-title {
+    font-size: xx-large;
+    margin-top: 9rem;
+  }
+}
+
+@media (min-width: 375px) {
+  #author-text {
+    margin-top: 3rem;
+  }
+  .post-title {
+    font-size: xx-large;
+    margin-top: 9rem;
   }
 }
 
@@ -721,6 +742,11 @@ progress {
 
 [hidden] {
   display: none !important;
+}
+
+button.btn-like {
+  border: none;
+  background: transparent;
 }
 
 .lead {

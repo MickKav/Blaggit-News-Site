@@ -1,21 +1,20 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 {% load crispy_forms_tags %}
 {% load static %}
 
 <div class="masthead">
     <div class="container">
-        <div class="row g-0">
+        <div class="row">
             <div class="col-md-7 masthead-text">
-                <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ post.title }}</h1>
-                <!-- Post author goes before the | the post's created date goes after -->
                 <p class="post-subtitle mt-22" id="author-txt">{{ post.author }} | {{ post.created_on }}</p>
             </div>
             <div class="d-none d-md-block col-md-5 masthead-image">
                 {% if not post.featured_image %}
-                    <img id="post-img" src="https://picsum.photos/id/1084/536/354?grayscale" width="80%">
+                    <img id="post-img" src="https://picsum.photos/id/1084/536/354?grayscale" class="img-fluid" alt="Post Image">
                 {% else %}
-                    <img src="{{ post.featured_image.url }}" width="100%">
+                    <img src="{{ post.featured_image.url }}" class="img-fluid" alt="Post Image">
                 {% endif %}
             </div>
         </div>
@@ -24,118 +23,111 @@
 
 <div class="container">
     <div class="row">
-        <div id="content-box" class="col-md-7 card mb-4  mt-3 left  top">
+        <div id="content-box" class="col-md-7 card mb-4 mt-3 left top">
             <div class="card-body">
-                <!-- The post content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text" id="card-text">
                     {{ post.content | safe }}
                 </p>
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-4 col-md-1">
                         <strong>
                             {% if user.is_authenticated %}
-                            <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
-                                {% csrf_token %}
-                                {% if liked %}
-                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
-                                    class="fa-solid fa-circle-up" style="color: #1ea427;"></i></button>
-                                {% else %}
-                                <button type="submit" name="blogpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
-                                    class="fa-regular fa-circle-up"></i></button>
-                                {% endif %}
-                                <input class="d-none" type="text" value="up" name="vote">
-                            </form>
-                            {% else%}
-                            <span class="text-scondary"><i class="fa-regular fa-circle-up"></i></span>
+                                <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" name="blogpost_id" value="{{post.slug}}" class="btn-like">
+                                        {% if liked %}
+                                            <i class="fa-solid fa-circle-up" style="color: #1ea427;"></i>
+                                        {% else %}
+                                            <i class="fa-regular fa-circle-up"></i>
+                                        {% endif %}
+                                    </button>
+                                    <input class="d-none" type="text" value="up" name="vote">
+                                </form>
+                            {% else %}
+                                <span class="text-secondary"><i class="fa-regular fa-circle-up"></i></span>
                             {% endif %}
                             <span class="text-secondary">{{ post.number_of_up_votes }}</span>
                         </strong>
                     </div>
-                    <div class="col-1">
+                    <div class="col-4 col-md-1">
                         <strong>
                             {% if user.is_authenticated %}
-                            <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
-                                {% csrf_token %}
-                                {% if disliked %}
-                                <button type="submit" name="blogdownpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
-                                    class="fa-solid fa-circle-down" style="color: #ff0000;"></i></button>
-                                {% else %}
-                                <button type="submit" name="blogdownpost_id" value="{{post.slug}}" id="btn-like" class="btn-like"><i 
-                                    class="fa-regular fa-circle-down"></i></button>
-                                {% endif %}
-                                <input class="d-none" type="text" value="down" name="vote">
-                            </form>
-                            {% else%}
-                            <span class="text-scondary"><i class="fa-regular fa-circle-down"></i></span>
+                                <form action="{% url 'post_vote' post.slug %}" class="d-inline" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" name="blogdownpost_id" value="{{post.slug}}" class="btn-like">
+                                        {% if disliked %}
+                                            <i class="fa-solid fa-circle-down" style="color: #ff0000;"></i>
+                                        {% else %}
+                                            <i class="fa-regular fa-circle-down"></i>
+                                        {% endif %}
+                                    </button>
+                                    <input class="d-none" type="text" value="down" name="vote">
+                                </form>
+                            {% else %}
+                                <span class="text-secondary"><i class="fa-regular fa-circle-down"></i></span>
                             {% endif %}
                             <span class="text-secondary">{{ post.number_of_down_votes }}</span>
                         </strong>
                     </div>
-                    <div class="col-1">
+                    <div class="col-4 col-md-1">
                         {% with comments.count as total_comments %}
-                        <strong class="text-secondary"><i class="far fa-comments"></i>
-                            <!-- Our total_comments variable goes before the closing strong tag -->
-                            {{ total_comments }}</strong>
+                            <strong class="text-secondary"><i class="far fa-comments"></i> {{ total_comments }}</strong>
                         {% endwith %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             {% if request.user == post.author %}
-            <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
-            {% csrf_token %}
-                Edit
-            </a>
-            <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger btn-lg border card">
-                Delete
-            </a>
+                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary btn-lg border card">
+                    {% csrf_token %}
+                    Edit
+                </a>
+                <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger btn-lg border card">
+                    Delete
+                </a>
             {% endif %}
             <hr>
         </div>
     </div>
-    <div id="comment-container" class="container clearfix">
+
+    <div class="container clearfix">
         <div class="row">
-            <div id="comments-box" class="col-md-8 card mb-4  mt-3 ">
+            <div id="comments-box" class="col-md-8 card mb-4 mt-3">
                 <h3 class="ml-5 mt-4" id="comment-head">Comments:</h3>
                 <div class="card-body">
-                    <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
                     <div class="comments" style="padding: 10px;">
                         {% for comment in comments %}
                             <p class="font-weight-bold" id="p-font-weight">
-                                <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
                                 {{ comment.name }} wrote:
                             </p>
-                            <!-- The body of the comment goes before the | -->
                             {{ comment.body | linebreaks }}
                             {{ comment.created_on }}
                             <hr>
                         {% endfor %}
                     </div>
-                    <!-- Our for loop ends here -->
                 </div>
             </div>
-            <div id="create-comment-box" class="col-md-4 card mb-4  mt-3 ">
+
+            <div id="create-comment-box" class="col-md-4 card mb-4 mt-3">
                 <div class="card-body">
                     {% if commented %}
-                    <div class="alert alert-success" role="alert" id="msg">
-                        Your comment is awaiting approval
-                    </div>
+                        <div class="alert alert-success" role="alert" id="msg">
+                            Your comment is awaiting approval
+                        </div>
                     {% else %}
-
-                    {% if user.is_authenticated %}
-
-                    <h3>Leave a comment:</h3>
-                    <p id="post-author">Posting as: {{ user.username }}</p>
-                    <form method="post" style="margin-top:1.3rem;">
-                        {{ comment_form | crispy }}
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-signup btn-lg border card">Submit</button>
-                    </form>
-                    {% endif %}
+                        {% if user.is_authenticated %}
+                            <h3>Leave a comment:</h3>
+                            <p id="post-author">Posting as: {{ user.username }}</p>
+                            <form method="post" style="margin-top:1.3rem;">
+                                {{ comment_form | crispy }}
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-signup btn-lg border card">Submit</button>
+                            </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
