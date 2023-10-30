@@ -53,6 +53,12 @@ This development journey was guided by various resources and communities:
 - CSS Tricks & freecodecamp: Provided insights into styling, loops, and layouts.
 - Open Source Images: Sourced from platforms like Pexels.
 
+## Wireframing
+
+[images here]
+
+- Figma was used to get a quick vidual Idea to go off of before starting the project.
+
 ## Deployment
 
 The site was deployed using Code Institutes mock terminal in Heroku.
