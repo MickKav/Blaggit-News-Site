@@ -56,8 +56,8 @@ This development journey was guided by various resources and communities:
 
 ## Wireframing
 
-<img src="media/img/figmatic.png" alt="screenshots of wireframe" width = "500">
-<img src="media/img/figmatic1.png" alt="screenshots of wireframe" width = "500">
+<img src="media/img/figmatic.png" alt="screenshots of wireframe" width = "300">
+<img src="media/img/figmatic1.png" alt="screenshots of wireframe" width = "300">
 
 - Figma was used to get a quick visual Idea to go off of before starting the project.
 
