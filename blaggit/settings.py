@@ -24,17 +24,19 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# settings.py
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [
     x.strip() for x in os.environ.get("ALLOWED_HOSTS", "").split(",")
 ]
+
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
@@ -157,6 +159,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dzhctl9fq',
+    'API_KEY': '735745689619761',
+    'API_SECRET': 'XGLmzZIV-0uxwxCarH3sRr270w0',
+}
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
