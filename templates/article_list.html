@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Article List</h1>
+  {% for article in object_list %}
+    <h2><a href="{% url 'news:article_detail' slug=article.slug %}">{{ article.title }}</a></h2>
+    <p>{{ article.content }}</p>
+    <p>Author: {{ article.author }}</p>
+    <p>Published on: {{ article.published_date }}</p>
+    <p>Likes: {{ article.likes.count }}</p>
+    <p>Dislikes: {{ article.dislikes.count }}</p>
+    <p>Comments: {{ article.comments.count }}</p>
+  {% endfor %}
+  <!-- Add pagination if needed -->
+{% endblock %}

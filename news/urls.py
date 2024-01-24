@@ -12,5 +12,6 @@ urlpatterns = [
     path('post_add/', views.AddPost.as_view(), name='post_add'),
     path('post_category/', views.AddCategory.as_view(), name='post_category'),
     path('post/<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('article/<slug:slug>/', ArticleDetail.as_view(), name='article_detail'),
     path('category/<str:cats>/', CategoryView, name='category'),
 ]
