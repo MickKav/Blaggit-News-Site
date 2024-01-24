@@ -19,6 +19,22 @@ class Category(models.Model):
         return reverse('home')
 
 
+class Article(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    publication_date = models.DateField()
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+        ('archived', 'Archived'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
+    
+    def is_published(self):
+        return self.publication_date <= timezone.now().date()
+
+
 class Post(models.Model):
     title = models.CharField(max_length = 200, unique = True)
     slug = models.SlugField(max_length = 200, unique = True)

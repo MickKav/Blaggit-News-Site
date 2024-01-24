@@ -161,3 +161,4 @@ def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
     categories = Category.objects.all()
     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts, 'categories': categories})
+    
