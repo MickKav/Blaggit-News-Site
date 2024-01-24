@@ -161,4 +161,10 @@ def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
     categories = Category.objects.all()
     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts, 'categories': categories})
-    
+
+
+class ArticleList(generic.ListView):
+    model = Article
+    queryset = Article.objects.filter(status='published').order_by('-publication_date')
+    template_name = 'article_list.html'
+    paginate_by = 6
