@@ -3,10 +3,11 @@ from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.detail import DetailView
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post, Category
+from .models import Post, Category, Article
 from .forms import CommentForm, PostForm, PostEditForm
 
 
@@ -168,3 +169,9 @@ class ArticleList(generic.ListView):
     queryset = Article.objects.filter(status='published').order_by('-publication_date')
     template_name = 'article_list.html'
     paginate_by = 6
+
+
+class ArticleDetail(DetailView):
+    model = Article  
+    template_name = 'article_detail.html'
+    context_object_name = 'article'

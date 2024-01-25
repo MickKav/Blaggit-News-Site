@@ -76,7 +76,7 @@ MESSAGE_TAGS = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-mickkav-redditstylenews-u4w28ho0gyt.ws-eu105.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-mickkav-blaggitnewssite-1qd8110ig4h.ws-eu107.gitpod.io']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

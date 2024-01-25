@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import AddCategory, CategoryView
+from .views import AddCategory, CategoryView, ArticleList, ArticleDetail
 
 app_name = 'news'
 
