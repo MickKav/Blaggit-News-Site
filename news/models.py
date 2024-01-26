@@ -23,7 +23,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    publication_date = models.DateField()
+    publication_date = models.DateField(blank=True, null=True)
     STATUS_CHOICES = [
         ('draft', 'Draft'),
         ('published', 'Published'),
