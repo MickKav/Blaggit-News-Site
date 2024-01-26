@@ -130,6 +130,7 @@ class PostDelete(DeleteView):
         return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
 
 
+@login_required
 @method_decorator(login_required, name = 'dispatch')
 class AddPost(CreateView):
     model = Post
@@ -152,6 +153,7 @@ class AddPost(CreateView):
         return reverse_lazy('news:post_detail', kwargs={'slug': self.object.slug})
 
 
+@login_required
 class PostEdit(View):
     template_name = 'post_edit.html'
 
@@ -171,6 +173,7 @@ class PostEdit(View):
             messages.error(request, 'Error updating post. Please check the form.')
         return render(request, self.template_name, {'form': form, 'post': post})
 
+@login_required
 class AddCategory(CreateView):
     model = Category
     template_name = 'post_category.html'
