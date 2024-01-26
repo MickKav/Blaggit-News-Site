@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView
@@ -115,7 +116,13 @@ class PostDelete(DeleteView):
 
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
-        return render(request, 'post_delete.html', {'post': post})
+        try:
+            post.delete()
+            messages.success(request, 'Post deleted successfully.')
+            return HttpResponseRedirect(reverse('news:home'))
+        except Exception as e:
+            messages.error(request, f'Error deleting post: {e}')
+        return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
 
 
 @method_decorator(login_required, name = 'dispatch')
@@ -126,10 +133,15 @@ class AddPost(CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-
         response = super().form_valid(form)
-
+        self.object.slug = slugify(self.object.title)
+        self.object.save()
+        messages.success(self.request, 'Post created successfully.')
         return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Error creating post. Please check the form.')
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
         return reverse_lazy('news:post_detail', kwargs={'slug': self.object.slug})
@@ -148,7 +160,10 @@ class PostEdit(View):
         form = PostEditForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Post updated successfully.')
             return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
+        else:
+            messages.error(request, 'Error updating post. Please check the form.')
         return render(request, self.template_name, {'form': form, 'post': post})
 
 class AddCategory(CreateView):
