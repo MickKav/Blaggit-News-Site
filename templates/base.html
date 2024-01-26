@@ -128,16 +128,6 @@
                 alert.close();
             }, 3000);
         </script>
-        <script>
-            {% if messages %}
-                {% for message in messages %}
-                    Toastify({
-                        text: "{{ message }}",
-                        duration: 3000,
-                    }).showToast();
-                {% endfor %}
-            {% endif %}
-        </script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>

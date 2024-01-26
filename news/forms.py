@@ -1,5 +1,6 @@
 from .models import Comment, Post, Category
 from django import forms
+from django.core.validators import MinLengthValidator
 
 
 class PostEditForm(forms.ModelForm):
@@ -20,6 +21,14 @@ class PostForm(forms.ModelForm):
         self.fields["category"].widget.choices = Category.objects.all().values_list(
             "name", "name"
         )
+
+    title = forms.CharField(validators=[MinLengthValidator(5)])
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if len(title) < 5:
+            raise forms.ValidationError("Title must be at least 5 characters long.")
+        return title
 
     class Meta:
         model = Post

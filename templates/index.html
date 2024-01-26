@@ -22,9 +22,8 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Post Title-->
-                                        <a href="{% url 'news:post_detail' post.slug %}">
+                                        <a href="{% if post.slug %}{% url 'news:post_detail' slug=post.slug %}{% endif %}">
                                             <h5 class="fw-bolder">{{ post.title }}</h5>
-                                            <!-- Post informaton-->
                                             <p class="card-text">{{ post.excerpt }}</p>
                                         </a>
                                         <hr />
