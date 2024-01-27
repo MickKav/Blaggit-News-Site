@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView
@@ -24,7 +26,8 @@ class PostList(generic.ListView):
         return context
 
 
-class PostDetail(View):
+class PostDetail(LoginRequiredMixin, View):
+    login_url = 'account_login'  # Set this to the URL of your login page
 
     def get(self, request, slug, *args, **kwargs):
         queryset = Post.objects.filter(status=1)
@@ -49,8 +52,7 @@ class PostDetail(View):
                 "comment_form": CommentForm(),
             },
         )
-        
-    
+
     def post(self, request, slug, *args, **kwargs):
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
@@ -72,7 +74,7 @@ class PostDetail(View):
             comment.save()
         else:
             comment_form = CommentForm()
-        
+
         return render(
             request,
             "post_detail.html",
@@ -130,7 +132,6 @@ class PostDelete(DeleteView):
         return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
 
 
-@login_required
 @method_decorator(login_required, name = 'dispatch')
 class AddPost(CreateView):
     model = Post
@@ -154,6 +155,7 @@ class AddPost(CreateView):
 
 
 @login_required
+@method_decorator(login_required, name = 'dispatch')
 class PostEdit(View):
     template_name = 'post_edit.html'
 
@@ -173,7 +175,8 @@ class PostEdit(View):
             messages.error(request, 'Error updating post. Please check the form.')
         return render(request, self.template_name, {'form': form, 'post': post})
 
-@login_required
+
+@method_decorator(login_required, name='dispatch')
 class AddCategory(CreateView):
     model = Category
     template_name = 'post_category.html'
@@ -181,10 +184,10 @@ class AddCategory(CreateView):
     success_url = reverse_lazy('news:home')
 
 
-def CategoryView(request, cats):
+def CategoryView(self, request, cats):
     category_posts = Post.objects.filter(category=cats)
     categories = Category.objects.all()
-    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts, 'categories': categories})
+    return render(request, 'categories.html', {'cats': cats, 'category_posts': category_posts, 'categories': categories})
 
 
 class ArticleList(generic.ListView):

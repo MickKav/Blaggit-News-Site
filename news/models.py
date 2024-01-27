@@ -58,6 +58,11 @@ class Post(models.Model):
 
         super().save(*args, **kwargs)
 
+    def clean(self):
+        super().clean()
+        if len(self.title) < 5:
+            raise ValidationError('Title must be at least 5 characters long.')
+
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug})
 

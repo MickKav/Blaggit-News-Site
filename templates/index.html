@@ -22,12 +22,12 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Post Title-->
-                                        <a href="{% if post.slug %}{% url 'news:post_detail' slug=post.slug %}{% endif %}">
+                                        <a href="{% url 'news:post_detail' slug=post.slug %}">
                                             <h5 class="fw-bolder">{{ post.title }}</h5>
                                             <p class="card-text">{{ post.excerpt }}</p>
                                         </a>
                                         <hr />
-                                        <a href="{% url 'news:category' cats=post.category %}">{{ post.category }}</a>
+                                        <a href="{% url 'news:add_category' %}">{{ post.category }}</a>
                                     </div>
                                 </div>
                                 <!-- Post actions-->
