@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center">Contact Us</h1>
+            <hr class="my-4">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% if not user.is_authenticated %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Message Us</h2>
+                    <p class="card-text">Please login to send us a message.</p>
+                    <a href="{% url 'account_login' %}" class="btn btn-primary">Go to Login Page</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Send Message</h2>
+                    <hr class="my-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Contact form -->
+                        {{ contact_form|crispy }}
+
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                    <!-- Form Errors -->
+                    {% if contact_form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        {% for field in contact_form %}
+                        {% for error in field.errors %}
+                        <strong>{{ error }}</strong>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Blaggit News HQ</h3>
+                    <hr class="my-4">
+                    <p>34 Blaggit Street</p>
+                    <p>Bluffington Square</p>
+                    <p>Dublin 2</p>
+                    <p>Blagimir@Blagovich.com</p>
+                    <p>+353 (0)1 123456</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

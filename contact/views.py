@@ -15,6 +15,10 @@ def get_user_instance(request):
     return user
 
 
+def home(request):
+    return render(request, 'index.html')
+
+
 class ContactMessage(View):
     """
     This view displays the contact form and if the user

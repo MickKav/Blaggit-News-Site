@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'news',
     'contact',
+    'rangefilter',
 ]
 
 SITE_ID = 1
