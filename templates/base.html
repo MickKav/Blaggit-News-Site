@@ -44,6 +44,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'news:add_category' %}">Add Category</a>
                         </li>
+                        {% if article %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'news:article_detail' slug=article.slug %}">Add Article</a>
+                        </li>
+                        {% endif %}
                         {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
@@ -81,6 +86,8 @@
                 </div>
             </div>
         </header>
+        <div>
+        </div>
         <!-- Main Content-->
         {% block content %}
         <!-- Content Goes here -->

@@ -35,6 +35,37 @@ The project is built using Django, a high-level Python web framework, and incorp
  
 ## Testing
 
+### Post Functionality Tests
+
+#### Test Setup
+
+Ensure that you have installed the necessary dependencies for running tests.
+
+```bash```
+- pip install -r requirements.txt
+- python manage.py test
+
+## Post Detail View Test
+
+**Objective:** Verify that the post detail view redirects to the login page for an unauthenticated user.
+
+**Test Steps:**
+1. Create a test user and a test post.
+2. Make a GET request to the post detail view URL.
+3. Assert that the response status code is 302 (redirect).
+
+## Post Add View Test
+
+**Objective:** Verify that a logged-in user can add a new post.
+
+**Test Steps:**
+1. Log in a test user.
+2. Make a POST request to the post add view URL with valid post data.
+3. Assert that the response status code is 302 (redirect).
+4. Assert that the response redirects to the newly created post detail page.
+5. Retrieve the newly created post from the database.
+6. Assert that the post author is the logged-in user.
+
 The application has been tested extensively to ensure functionality and responsiveness:
 
 - HTML & CSS: Validated with W3C and Jigsaw validators.

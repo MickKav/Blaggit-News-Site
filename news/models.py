@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.urls import reverse
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.utils.translation import gettext_lazy as _
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -17,22 +19,6 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
-
-
-class Article(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    publication_date = models.DateField(blank=True, null=True)
-    STATUS_CHOICES = [
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-        ('archived', 'Archived'),
-    ]
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-    
-    def is_published(self):
-        return self.publication_date <= timezone.now().date()
 
 
 class Post(models.Model):

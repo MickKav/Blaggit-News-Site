@@ -5,13 +5,36 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import Post, Category, Article
+from .models import Post, Category
 from .forms import CommentForm, PostForm, PostEditForm
+
+
+@method_decorator(login_required, name='dispatch')
+class AddPost(CreateView):
+    model = Post
+    template_name = 'post_add.html'
+    form_class = PostForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        response = super().form_valid(form)
+        self.object.slug = slugify(self.object.title)
+        self.object.save()
+        messages.success(self.request, 'Post created successfully.')
+        return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Error creating post. Please check the form.')
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        return reverse_lazy('news:post_detail', kwargs={'slug': self.object.slug})
 
 
 class PostList(generic.ListView):
@@ -151,10 +174,9 @@ class AddPost(CreateView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return reverse_lazy('news:post_detail', kwargs={'slug': self.object.slug})
+        return reverse('news:post_detail', kwargs={'slug': self.object.slug})
 
 
-@login_required
 @method_decorator(login_required, name = 'dispatch')
 class PostEdit(View):
     template_name = 'post_edit.html'
@@ -188,16 +210,3 @@ def CategoryView(self, request, cats):
     category_posts = Post.objects.filter(category=cats)
     categories = Category.objects.all()
     return render(request, 'categories.html', {'cats': cats, 'category_posts': category_posts, 'categories': categories})
-
-
-class ArticleList(generic.ListView):
-    model = Article
-    queryset = Article.objects.filter(status='published').order_by('-publication_date')
-    template_name = 'article_list.html'
-    paginate_by = 6
-
-
-class ArticleDetail(DetailView):
-    model = Article  
-    template_name = 'article_detail.html'
-    context_object_name = 'article'

@@ -57,6 +57,7 @@
                             class="page-link"> NEXT &raquo;</a></li>
                         {% endif %}
                     </ul>
+                    <a href="{% url 'news:post_detail' slug=post.slug %}">Article</a>
                 </nav>
                 {% endif %}
             </div>
