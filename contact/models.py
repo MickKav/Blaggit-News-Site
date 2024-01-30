@@ -1,5 +1,4 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import User
 
 
@@ -23,7 +22,6 @@ class Contact(models.Model):
         max_length = 254,
         default = ""
          )
-    phone = PhoneNumberField(null = True)
     message = models.TextField()
 
     class Meta:

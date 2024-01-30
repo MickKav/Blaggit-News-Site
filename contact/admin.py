@@ -9,7 +9,6 @@ class ContactAdmin(admin.ModelAdmin):
         'user',
         'name',
         'email',
-        'phone',
      )
 
     list_display = (
@@ -17,7 +16,6 @@ class ContactAdmin(admin.ModelAdmin):
         'user',
         'name',
         'message',
-        'phone',
         'created_date',
      )
 

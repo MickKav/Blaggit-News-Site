@@ -7,7 +7,6 @@ django-admin-rangefilter==0.12.0
 django-allauth==0.57.0
 django-bootstrap4==23.2
 django-crispy-forms==1.14.0
-django-phonenumber-field==7.3.0
 django-rangefilter==0.9.1
 django-summernote==0.8.20.0
 gunicorn==21.2.0
