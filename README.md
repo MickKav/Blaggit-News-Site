@@ -110,8 +110,8 @@ The application has been tested extensively to ensure functionality and responsi
   
 <details><summary>See feature images</summary>
 
-![Contact Us](docs/features/feature-contact-us.PNG)
-![Contact Us](docs/features/feature-contact-us2.PNG)
+![Contact Us](media/img/contact-form.png)
+![Contact Us](media/img/address-blag.png)
 </details>
 
 ## User Experience

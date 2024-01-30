@@ -38,19 +38,22 @@ class Post(models.Model):
         related_name = 'news_down_vote', blank = True)
     category = models.CharField(max_length = 200, default = 'news')
 
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
 
         super().save(*args, **kwargs)
 
+
     def clean(self):
         super().clean()
         if len(self.title) < 5:
             raise ValidationError('Title must be at least 5 characters long.')
 
+
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'slug': self.slug})
+        return reverse('post_detail', kwargs = {'slug': self.slug})
 
     class Meta:
         ordering = ['-created_on']

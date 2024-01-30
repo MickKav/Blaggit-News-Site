@@ -10,7 +10,7 @@ class ContactAdmin(admin.ModelAdmin):
         'name',
         'email',
         'phone',
-    )
+     )
 
     list_display = (
         'message_id',
@@ -19,6 +19,6 @@ class ContactAdmin(admin.ModelAdmin):
         'message',
         'phone',
         'created_date',
-    )
+     )
 
     search_fields = ['name']
