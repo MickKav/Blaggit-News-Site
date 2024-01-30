@@ -7,12 +7,15 @@ from .forms import ContactForm
 
 def get_user_instance(request):
     """
-    retrieves user details if logged in
+    Retrieves user details if logged in
     """
 
-    user_email = request.user.email
-    user = User.objects.filter(email = user_email).first()
-    return user
+    if request.user.is_authenticated:
+        user_email = request.user.email
+        user = User.objects.filter(email=user_email).first()
+        return user
+    else:
+        return None
 
 
 def home(request):
@@ -28,34 +31,33 @@ class ContactMessage(View):
     template_name = 'contact/contact.html'
     success_message = 'Message has been sent.'
 
-
     def get(self, request, *args, **kwargs):
         """
         Retrieves users email and inputs into email input
         """
         if request.user.is_authenticated:
             email = request.user.email
-            contact_form = ContactForm(initial = {'email': email})
+            contact_form = ContactForm(initial={'email': email})
         else:
             contact_form = ContactForm()
-        return render(request, 'contact/contact.html',
-                      {'contact_form': contact_form})
-
+        return render(request, 'contact/contact.html', {'contact_form': contact_form})
 
     def post(self, request):
         """
         Checks that the provided info is valid format
         and then posts to database
         """
-        contact_form = ContactForm(data = request.POST)
+        if request.user.is_authenticated:
+            contact_form = ContactForm(data=request.POST)
+        else:
+            contact_form = ContactForm(data=request.POST, initial={'email': request.POST.get('email', '')})
 
         if contact_form.is_valid():
-            contact = contact_form.save(commit = False)
-            contact.user = request.user
+            contact = contact_form.save(commit=False)
+            if request.user.is_authenticated:
+                contact.user = request.user
             contact.save()
-            messages.success(
-                request, "Message has been sent")
+            messages.success(request, "Message has been sent")
             return render(request, 'contact/received.html')
 
-        return render(request, 'contact/contact.html',
-                      {'contact_form': contact_form})
+        return render(request, 'contact/contact.html', {'contact_form': contact_form})

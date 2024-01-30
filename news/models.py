@@ -24,7 +24,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length = 200, unique = True)
-    slug = models.SlugField(max_length = 200, unique = True)
+    slug = models.SlugField(max_length = 200, unique = True, blank = True)
     author = models.ForeignKey(User, on_delete = models.CASCADE, 
         related_name = "news_posts")
     updated_on = models.DateTimeField(auto_now = True)
@@ -43,6 +43,9 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+
+        while Post.objects.filter(slug=self.slug).exists():
+            self.slug = f"{self.slug}-{Post.objects.count() + 1}"
 
         super().save(*args, **kwargs)
 

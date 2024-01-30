@@ -25,7 +25,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "DEVELOPMENT" in os.environ
+# DEBUG = "DEVELOPMENT" in os.environ
+DEBUG = "True"
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
