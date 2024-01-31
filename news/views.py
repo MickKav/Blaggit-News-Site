@@ -23,9 +23,8 @@ class AddPost(CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.slug = slugify(form.cleaned_data['title'])
         response = super().form_valid(form)
-        self.object.slug = slugify(self.object.title)
-        self.object.save()
         messages.success(self.request, 'Post created successfully.')
         return response
 
@@ -156,28 +155,6 @@ class PostDelete(DeleteView):
         except Exception as e:
             messages.error(request, f'Error deleting post: {e}')
         return HttpResponseRedirect(reverse('news:post_detail', args=[slug]))
-
-
-@method_decorator(login_required, name = 'dispatch')
-class AddPost(CreateView):
-    model = Post
-    template_name = 'post_add.html'
-    form_class = PostForm
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        response = super().form_valid(form)
-        self.object.slug = slugify(self.object.title)
-        self.object.save()
-        messages.success(self.request, 'Post created successfully.')
-        return response
-
-    def form_invalid(self, form):
-        messages.error(self.request, 'Error creating post. Please check the form.')
-        return self.render_to_response(self.get_context_data(form=form))
-
-    def get_success_url(self):
-        return reverse('news:post_detail', kwargs={'slug': self.object.slug})
 
 
 @method_decorator(login_required, name = 'dispatch')

@@ -44,9 +44,6 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
 
-        while Post.objects.filter(slug=self.slug).exists():
-            self.slug = f"{self.slug}-{Post.objects.count() + 1}"
-
         super().save(*args, **kwargs)
 
 
