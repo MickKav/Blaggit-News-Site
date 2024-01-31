@@ -1,1 +1,1 @@
-web: gunicorn blaggit.wsgi
+web: gunicorn blaggit.wsgi:application
